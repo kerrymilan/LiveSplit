@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Windows.Forms;
 
 using LiveSplit.Model;
 using LiveSplit.Options;
 using LiveSplit.TimeFormatters;
+using LiveSplit.UI;
+using LiveSplit.UI.LayoutFactories;
 
 using WebSocketSharp.Server;
 
@@ -29,6 +33,10 @@ public class CommandServer
     protected NamedPipeServerStream WaitingServerPipe { get; set; }
 
     protected bool AlwaysPauseGameTime { get; set; }
+    protected string LayoutPath { get; set; }
+    protected ILayout Layout1 { get; set; }
+    protected ILayout Layout2 { get; set; }
+    protected ILayout CurrentLayout { get; set; }
 
     public CommandServer(LiveSplitState state)
     {
@@ -42,6 +50,10 @@ public class CommandServer
 
         Model.CurrentState = State;
         State.OnStart += State_OnStart;
+
+        Layout1 = OpenLayoutFromFile("C:\\Users\\milank\\Documents\\SM64\\LiveSplit\\LiveSplit-layout-minimal.lsl");
+        Layout2 = OpenLayoutFromFile("C:\\Users\\milank\\Documents\\SM64\\LiveSplit\\LiveSplit-layout-booleanonly.lsl");
+        CurrentLayout = Layout1;
     }
 
     public void StartTcp()
@@ -498,6 +510,26 @@ public class CommandServer
                 response = "pong";
                 break;
             }
+            case "togglelayout":
+            {
+                if (CurrentLayout == Layout1)
+                {
+                    CurrentLayout = Layout2;
+                }
+                else
+                {
+                    CurrentLayout = Layout1;
+                }
+
+                State.Layout = CurrentLayout;
+                Type timerFormType = Application.OpenForms[0].GetType();
+                MethodInfo m = timerFormType.GetMethod("OpenLayoutFromFile");
+                object[] p = [CurrentLayout.FilePath];
+                m.Invoke(State.Form, p);
+
+                Log.Info($"[Server] Layout toggle: {LayoutPath}");
+                break;
+            }
             default:
             {
                 Log.Error($"[Server] Invalid command: {message}");
@@ -509,6 +541,14 @@ public class CommandServer
         {
             clientConnection.SendMessage(response);
         }
+    }
+
+    private ILayout OpenLayoutFromFile(string filePath)
+    {
+        using FileStream stream = File.OpenRead(filePath);
+        ILayout layout = new XMLLayoutFactory(stream).Create(State);
+        layout.FilePath = filePath;
+        return layout;
     }
 
     private void tcpConnection_Disconnected(object sender, EventArgs e)

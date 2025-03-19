@@ -122,6 +122,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsColor", "lib\WinFor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveSplit.ComparisonTime", "components\LiveSplit.ComparisonTime\src\LiveSplit.ComparisonTime\LiveSplit.ComparisonTime.csproj", "{13E9FE68-5CCD-4B61-B22F-87846111A2A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.Boolean", "components\LiveSplit.Boolean\src\LiveSplit.Boolean\LiveSplit.Boolean.csproj", "{474643A0-8592-42B2-8AA0-603659AEE51A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -268,6 +270,10 @@ Global
 		{13E9FE68-5CCD-4B61-B22F-87846111A2A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13E9FE68-5CCD-4B61-B22F-87846111A2A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13E9FE68-5CCD-4B61-B22F-87846111A2A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{474643A0-8592-42B2-8AA0-603659AEE51A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{474643A0-8592-42B2-8AA0-603659AEE51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{474643A0-8592-42B2-8AA0-603659AEE51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{474643A0-8592-42B2-8AA0-603659AEE51A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -314,5 +320,6 @@ Global
 		{9C4ED8A7-5306-421A-8BBF-2E1C49AAE943} = {4850A037-C05C-4A26-A0B0-0E109663C7A8}
 		{0D77A457-99DE-41D8-89E6-1EA293FB2AFB} = {4850A037-C05C-4A26-A0B0-0E109663C7A8}
 		{13E9FE68-5CCD-4B61-B22F-87846111A2A5} = {3A3C7035-1C1F-462D-B388-291BEF33000D}
+		{474643A0-8592-42B2-8AA0-603659AEE51A} = {CCE02961-4FBF-40BF-B2B6-8982462F0909}
 	EndGlobalSection
 EndGlobal

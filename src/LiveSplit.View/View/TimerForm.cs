@@ -319,6 +319,10 @@ public partial class TimerForm : Form
         Server = new CommandServer(CurrentState);
         Server.StartNamedPipe();
 
+        Server.StartTcp();
+        webSocketMenuItem.Enabled = false;
+        this.InvokeIfRequired(() => serverMenuItem.Text = "Stop TCP Server");
+
         new System.Timers.Timer(1000) { Enabled = true }.Elapsed += PerSecondTimer_Elapsed;
 
         InitDragAndDrop();
